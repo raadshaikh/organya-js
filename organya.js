@@ -183,7 +183,7 @@
         }
         
         homeOrg() {
-			this.stop();
+			this.pause();
             this.playPos = 0;
             this.updateTimeDisplay();
         }
@@ -327,6 +327,7 @@
 		
 		const searchParams = new URLSearchParams(window.location.search);
 		var use_beta_sounds = (document.getElementById("use_beta_sounds_id").checked) || (searchParams.has('use_beta_sounds') && searchParams.get('use_beta_sounds'));
+		console.log(use_beta_sounds);
         
         console.log("Initializing Organya...");
         const res = await fetch("WAVE100" + use_beta_sounds?"_beta":"" + ".bin");
