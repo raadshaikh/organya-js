@@ -324,14 +324,17 @@
         if (window.Organya) return;
         
         //splitting waves and drums into separate wavetables
+		
+		const searchParams = new URLSearchParams(window.location.search);
+		var use_beta_sounds = (document.getElementById("use_beta_sounds_id").checked) || (searchParams.has('use_beta_sounds') && searchParams.get('use_beta_sounds'));
         
         console.log("Initializing Organya...");
-        const res = await fetch("WAVE100.bin");
+        const res = await fetch("WAVE100" + use_beta_sounds?"_beta":"" + ".bin");
         const buf = await res.arrayBuffer();
         const view = new DataView(buf);
         waveTable = new Int8Array(buf);
         
-        const res_d = await fetch("DrumWaves.bin"); //'_d' for 'drum'. Beyond that, code is unchanged
+        const res_d = await fetch("DrumWaves" + use_beta_sounds?"_beta":"" + ".bin"); //'_d' for 'drum'. Beyond that, code is unchanged
         const buf_d = await res_d.arrayBuffer();
         const view_d = new DataView(buf_d);
         drumWaveTable = new Int8Array(buf_d);
